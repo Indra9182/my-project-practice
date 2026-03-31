@@ -1,0 +1,6 @@
+name,temp,power_watts,memory_used_gb
+GPU-0,72,280,18
+GPU-1,68,265,16
+GPU-2,75,310,22
+GPU-3,71,275,19
+GPU-4,80,340,24

@@ -1,0 +1,43 @@
+{
+  "avg_temp": 73.2,
+  "max_temp": 80,
+  "limit": 80,
+  "overall": "PASS",
+  "details": [
+    {
+      "name": "GPU-0",
+      "temp": 72,
+      "power_watts": 280,
+      "memory_used_gb": 18,
+      "status": "PASS"
+    },
+    {
+      "name": "GPU-1",
+      "temp": 68,
+      "power_watts": 265,
+      "memory_used_gb": 16,
+      "status": "PASS"
+    },
+    {
+      "name": "GPU-2",
+      "temp": 75,
+      "power_watts": 310,
+      "memory_used_gb": 22,
+      "status": "PASS"
+    },
+    {
+      "name": "GPU-3",
+      "temp": 71,
+      "power_watts": 275,
+      "memory_used_gb": 19,
+      "status": "PASS"
+    },
+    {
+      "name": "GPU-4",
+      "temp": 80,
+      "power_watts": 340,
+      "memory_used_gb": 24,
+      "status": "PASS"
+    }
+  ]
+}
