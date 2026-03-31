@@ -70,7 +70,8 @@ def save_results(result, output_path):
     print(f"Results saved to {output_path}")
     print(f"Overall: {result['overall']}")
 
-args = parse_args()
-metrics = read_metrics_from_csv(args.input)
-result = analyze_metrics(metrics, args.limit)
-save_results(result, args.output)
+if __name__ == "__main__":
+    args = parse_args()
+    metrics = read_metrics_from_csv(args.input)
+    result = analyze_metrics(metrics, args.limit)
+    save_results(result, args.output)
