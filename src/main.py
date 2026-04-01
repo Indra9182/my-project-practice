@@ -4,10 +4,11 @@ import os
 import argparse
 
 TEMP_LIMIT = 73
+POWER_LIMIT = 300
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="GPU validation tool — checks thermal metrics against a threshold"
+        description="GPU validation tool — checks thermal and power metrics"
     )
     parser.add_argument(
         "--input",
@@ -19,6 +20,12 @@ def parse_args():
         type=int,
         default=TEMP_LIMIT,
         help=f"Temperature limit in Celsius (default: {TEMP_LIMIT})"
+    )
+    parser.add_argument(
+        "--power-limit",
+        type=int,
+        default=POWER_LIMIT,
+        help=f"Power limit in watts (default: {POWER_LIMIT})"
     )
     parser.add_argument(
         "--output",
@@ -40,26 +47,50 @@ def read_metrics_from_csv(filepath):
             })
     return metrics
 
-def analyze_metrics(data, limit):
+def analyze_metrics(data, limit, power_limit):
     temps = [d["temp"] for d in data]
     avg = sum(temps) / len(temps)
 
     results = []
     for d in data:
-        status = "PASS" if d["temp"] <= limit else "FAIL"
+        temp_ok = d["temp"] <= limit
+        power_ok = d["power_watts"] <= power_limit
+
+        status = "PASS" if temp_ok and power_ok else "FAIL"
+
+        reasons = []
+        if not temp_ok:
+            reasons.append(f"temp {d['temp']}>{limit}")
+        if not power_ok:
+            reasons.append(f"power {d['power_watts']}>{power_limit}")
+
         results.append({
             "name": d["name"],
             "temp": d["temp"],
             "power_watts": d["power_watts"],
             "memory_used_gb": d["memory_used_gb"],
-            "status": status
+            "status": status,
+            "fail_reason": ", ".join(reasons) if reasons else "none"
         })
+
+    passed = sum(1 for d in results if d["status"] == "PASS")
+    failed = sum(1 for d in results if d["status"] == "FAIL")
+    total = len(results)
 
     return {
         "avg_temp": round(avg, 2),
         "max_temp": max(temps),
         "limit": limit,
-        "overall": "PASS" if max(temps) <= limit else "FAIL",
+        "power_limit": power_limit,
+        "overall": "PASS" if max(temps) <= limit and all(
+            d["power_watts"] <= power_limit for d in data
+        ) else "FAIL",
+        "summary": {
+            "total": total,
+            "passed": passed,
+            "failed": failed,
+            "pass_rate": f"{round((passed / total) * 100, 1)}%"
+        },
         "details": results
     }
 
@@ -69,9 +100,10 @@ def save_results(result, output_path):
         json.dump(result, f, indent=2)
     print(f"Results saved to {output_path}")
     print(f"Overall: {result['overall']}")
+    print(f"Summary: {result['summary']}")
 
 if __name__ == "__main__":
     args = parse_args()
     metrics = read_metrics_from_csv(args.input)
-    result = analyze_metrics(metrics, args.limit)
+    result = analyze_metrics(metrics, args.limit, args.power_limit)
     save_results(result, args.output)
