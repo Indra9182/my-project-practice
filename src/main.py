@@ -2,6 +2,9 @@ import json
 import csv
 import os
 import argparse
+import datetime
+import socket
+import sys
 
 TEMP_LIMIT = 73
 POWER_LIMIT = 300
@@ -46,6 +49,14 @@ def read_metrics_from_csv(filepath):
                 "memory_used_gb": int(row["memory_used_gb"])
             })
     return metrics
+def build_metadata(input_path):
+    return {
+        "timestamp": datetime.datetime.now().isoformat(),
+        "hostname": socket.gethostname(),
+        "python_version": sys.version.split()[0],
+        "input_file": input_path,
+        "tool_version": "1.0.0"
+    }
 
 def analyze_metrics(data, limit, power_limit):
     temps = [d["temp"] for d in data]
@@ -94,16 +105,21 @@ def analyze_metrics(data, limit, power_limit):
         "details": results
     }
 
-def save_results(result, output_path):
+def save_results(result, output_path, metadata):
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output = {
+        "metadata": metadata,
+        "results": result
+    }
     with open(output_path, "w") as f:
-        json.dump(result, f, indent=2)
+        json.dump(output, f, indent=2)
     print(f"Results saved to {output_path}")
     print(f"Overall: {result['overall']}")
     print(f"Summary: {result['summary']}")
-
+    print(f"Run timestamp: {metadata['timestamp']}")
 if __name__ == "__main__":
     args = parse_args()
     metrics = read_metrics_from_csv(args.input)
     result = analyze_metrics(metrics, args.limit, args.power_limit)
-    save_results(result, args.output)
+    metadata = build_metadata(args.input)
+    save_results(result, args.output, metadata)

@@ -1,55 +1,64 @@
 {
-  "avg_temp": 73.2,
-  "max_temp": 80,
-  "limit": 73,
-  "power_limit": 270,
-  "overall": "FAIL",
-  "summary": {
-    "total": 5,
-    "passed": 1,
-    "failed": 4,
-    "pass_rate": "20.0%"
+  "metadata": {
+    "timestamp": "2026-04-01T13:09:01.029199",
+    "hostname": "Windows",
+    "python_version": "3.12.5",
+    "input_file": "data/gpu_metrics.csv",
+    "tool_version": "1.0.0"
   },
-  "details": [
-    {
-      "name": "GPU-0",
-      "temp": 72,
-      "power_watts": 280,
-      "memory_used_gb": 18,
-      "status": "FAIL",
-      "fail_reason": "power 280>270"
+  "results": {
+    "avg_temp": 73.2,
+    "max_temp": 80,
+    "limit": 73,
+    "power_limit": 300,
+    "overall": "FAIL",
+    "summary": {
+      "total": 5,
+      "passed": 3,
+      "failed": 2,
+      "pass_rate": "60.0%"
     },
-    {
-      "name": "GPU-1",
-      "temp": 68,
-      "power_watts": 265,
-      "memory_used_gb": 16,
-      "status": "PASS",
-      "fail_reason": "none"
-    },
-    {
-      "name": "GPU-2",
-      "temp": 75,
-      "power_watts": 310,
-      "memory_used_gb": 22,
-      "status": "FAIL",
-      "fail_reason": "temp 75>73, power 310>270"
-    },
-    {
-      "name": "GPU-3",
-      "temp": 71,
-      "power_watts": 275,
-      "memory_used_gb": 19,
-      "status": "FAIL",
-      "fail_reason": "power 275>270"
-    },
-    {
-      "name": "GPU-4",
-      "temp": 80,
-      "power_watts": 340,
-      "memory_used_gb": 24,
-      "status": "FAIL",
-      "fail_reason": "temp 80>73, power 340>270"
-    }
-  ]
+    "details": [
+      {
+        "name": "GPU-0",
+        "temp": 72,
+        "power_watts": 280,
+        "memory_used_gb": 18,
+        "status": "PASS",
+        "fail_reason": "none"
+      },
+      {
+        "name": "GPU-1",
+        "temp": 68,
+        "power_watts": 265,
+        "memory_used_gb": 16,
+        "status": "PASS",
+        "fail_reason": "none"
+      },
+      {
+        "name": "GPU-2",
+        "temp": 75,
+        "power_watts": 310,
+        "memory_used_gb": 22,
+        "status": "FAIL",
+        "fail_reason": "temp 75>73, power 310>300"
+      },
+      {
+        "name": "GPU-3",
+        "temp": 71,
+        "power_watts": 275,
+        "memory_used_gb": 19,
+        "status": "PASS",
+        "fail_reason": "none"
+      },
+      {
+        "name": "GPU-4",
+        "temp": 80,
+        "power_watts": 340,
+        "memory_used_gb": 24,
+        "status": "FAIL",
+        "fail_reason": "temp 80>73, power 340>300"
+      }
+    ]
+  }
 }
