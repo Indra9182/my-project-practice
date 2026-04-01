@@ -1,9 +1,10 @@
 import pytest
 import sys
 import os
+import datetime
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
-from main import analyze_metrics, read_metrics_from_csv
+from main import analyze_metrics, read_metrics_from_csv, build_metadata
 
 SAMPLE_METRICS = [
     {"name": "GPU-0", "temp": 72, "power_watts": 280, "memory_used_gb": 18},
@@ -67,6 +68,28 @@ def test_fail_reason_is_none_when_passing():
     result = analyze_metrics(SAMPLE_METRICS, limit=100, power_limit=350)
     gpu0 = next(d for d in result["details"] if d["name"] == "GPU-0")
     assert gpu0["fail_reason"] == "none"
+
+def test_metadata_contains_required_keys():
+    metadata = build_metadata("data/gpu_metrics.csv")
+    assert "timestamp" in metadata
+    assert "hostname" in metadata
+    assert "python_version" in metadata
+    assert "input_file" in metadata
+    assert "tool_version" in metadata
+
+def test_metadata_input_file_matches():
+    metadata = build_metadata("data/gpu_metrics.csv")
+    assert metadata["input_file"] == "data/gpu_metrics.csv"
+
+def test_metadata_timestamp_is_valid_iso_format():
+    metadata = build_metadata("data/gpu_metrics.csv")
+    parsed = datetime.datetime.fromisoformat(metadata["timestamp"])
+    assert isinstance(parsed, datetime.datetime)
+
+def test_metadata_hostname_is_string():
+    metadata = build_metadata("data/gpu_metrics.csv")
+    assert isinstance(metadata["hostname"], str)
+    assert len(metadata["hostname"]) > 0
 
 @pytest.mark.parametrize("limit,expected", [
     (80, "PASS"),
