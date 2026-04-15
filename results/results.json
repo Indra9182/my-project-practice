@@ -1,10 +1,11 @@
 {
   "metadata": {
-    "timestamp": "2026-04-01T13:09:01.029199",
+    "timestamp": "2026-04-15T15:46:39.001153",
     "hostname": "Windows",
     "python_version": "3.12.5",
+    "source": "csv",
     "input_file": "data/gpu_metrics.csv",
-    "tool_version": "1.0.0"
+    "tool_version": "3.0.0"
   },
   "results": {
     "avg_temp": 73.2,
@@ -21,43 +22,73 @@
     "details": [
       {
         "name": "GPU-0",
+        "index": null,
         "temp": 72,
         "power_watts": 280,
         "memory_used_gb": 18,
+        "memory_total_gb": null,
+        "gpu_util_pct": null,
+        "pcie_gen": null,
+        "fan_speed_pct": null,
+        "perf_state": null,
         "status": "PASS",
         "fail_reason": "none"
       },
       {
         "name": "GPU-1",
+        "index": null,
         "temp": 68,
         "power_watts": 265,
         "memory_used_gb": 16,
+        "memory_total_gb": null,
+        "gpu_util_pct": null,
+        "pcie_gen": null,
+        "fan_speed_pct": null,
+        "perf_state": null,
         "status": "PASS",
         "fail_reason": "none"
       },
       {
         "name": "GPU-2",
+        "index": null,
         "temp": 75,
         "power_watts": 310,
         "memory_used_gb": 22,
+        "memory_total_gb": null,
+        "gpu_util_pct": null,
+        "pcie_gen": null,
+        "fan_speed_pct": null,
+        "perf_state": null,
         "status": "FAIL",
-        "fail_reason": "temp 75>73, power 310>300"
+        "fail_reason": "temp 75>73C, power 310W>300W"
       },
       {
         "name": "GPU-3",
+        "index": null,
         "temp": 71,
         "power_watts": 275,
         "memory_used_gb": 19,
+        "memory_total_gb": null,
+        "gpu_util_pct": null,
+        "pcie_gen": null,
+        "fan_speed_pct": null,
+        "perf_state": null,
         "status": "PASS",
         "fail_reason": "none"
       },
       {
         "name": "GPU-4",
+        "index": null,
         "temp": 80,
         "power_watts": 340,
         "memory_used_gb": 24,
+        "memory_total_gb": null,
+        "gpu_util_pct": null,
+        "pcie_gen": null,
+        "fan_speed_pct": null,
+        "perf_state": null,
         "status": "FAIL",
-        "fail_reason": "temp 80>73, power 340>300"
+        "fail_reason": "temp 80>73C, power 340W>300W"
       }
     ]
   }

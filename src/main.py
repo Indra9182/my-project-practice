@@ -6,7 +6,7 @@ import datetime
 import socket
 import sys
 import logging
-
+from config import load_config, ValidationConfig
 TEMP_LIMIT  = 73
 POWER_LIMIT = 300
 
@@ -46,6 +46,11 @@ def parse_args():
         help="Comma-separated GPU indices, e.g. 0,1,2 (default: all)")
     parser.add_argument("--verbose", "-v", action="store_true",
         help="Enable debug logging")
+    parser.add_argument("--config", default="config/validation_config.yaml",
+        help="Path to YAML config file")
+    parser.add_argument("--profile", default=None,
+        choices=["strict", "standard", "burn_in"],
+        help="Validation profile to use (overrides config thresholds)")
     return parser.parse_args()
 
 
@@ -304,6 +309,13 @@ if __name__ == "__main__":
     args = parse_args()
     setup_logging(args.verbose)
 
+    # Load config — CLI args override config file values
+    cfg = load_config(args.config, profile=args.profile)
+
+    # CLI args take priority over config file
+    temp_limit  = args.limit  if args.limit  != TEMP_LIMIT  else cfg.thresholds.temp_limit_c
+    power_limit = args.power_limit if args.power_limit != POWER_LIMIT else cfg.thresholds.power_limit_w
+
     device_indices = None
     if args.devices:
         device_indices = [int(x.strip()) for x in args.devices.split(",")]
@@ -325,5 +337,5 @@ if __name__ == "__main__":
         metrics  = read_metrics_from_nvml(device_indices)
         metadata = build_metadata("nvml")
 
-    result = analyze_metrics(metrics, args.limit, args.power_limit)
-    save_results(result, args.output, metadata)
+    result = analyze_metrics(metrics, temp_limit, power_limit)
+    save_results(result, args.output or cfg.tool.output_dir + "/results.json", metadata)

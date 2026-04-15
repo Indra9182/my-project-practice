@@ -1,0 +1,41 @@
+# GPU Validation Tool — Configuration
+# Edit thresholds here without touching any Python code
+
+tool:
+  name: "NVIDIA GPU Validation Tool"
+  version: "4.0.0"
+  output_dir: "results"
+  log_file: "validation.log"
+
+thresholds:
+  temp_limit_c: 73
+  power_limit_w: 300
+  memory_limit_gb: 23
+  gpu_util_warn_pct: 95
+
+profiles:
+  strict:
+    temp_limit_c: 70
+    power_limit_w: 280
+    description: "Pre-tape-out strict validation"
+
+  standard:
+    temp_limit_c: 73
+    power_limit_w: 300
+    description: "Standard datacenter validation"
+
+  burn_in:
+    temp_limit_c: 85
+    power_limit_w: 350
+    description: "Extended burn-in test — higher limits"
+
+reporting:
+  save_json: true
+  save_csv: false
+  include_metadata: true
+  pass_rate_target_pct: 95
+
+gpus:
+  expected_count: 8
+  expected_memory_gb: 80
+  expected_pcie_gen: 5

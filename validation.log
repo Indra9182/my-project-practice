@@ -1,0 +1,29 @@
+2026-04-15 15:46:06 | INFO     | Loaded config from config/validation_config.yaml
+2026-04-15 15:46:06 | INFO     | Loaded 5 GPU entries from data/gpu_metrics.csv
+2026-04-15 15:46:06 | WARNING  | 2 of 5 GPU(s) FAILED validation
+2026-04-15 15:46:06 | WARNING  |   FAIL: GPU-2 — temp 75>73C, power 310W>300W
+2026-04-15 15:46:06 | WARNING  |   FAIL: GPU-4 — temp 80>73C, power 340W>300W
+2026-04-15 15:46:06 | INFO     | Overall: FAIL | Pass rate: 60.0%
+2026-04-15 15:46:15 | INFO     | Loaded config from config/validation_config.yaml
+2026-04-15 15:46:15 | INFO     | Applying profile: strict — Pre-tape-out strict validation
+2026-04-15 15:46:15 | INFO     | Loaded 5 GPU entries from data/gpu_metrics.csv
+2026-04-15 15:46:15 | WARNING  | 4 of 5 GPU(s) FAILED validation
+2026-04-15 15:46:15 | WARNING  |   FAIL: GPU-0 — temp 72>70C
+2026-04-15 15:46:15 | WARNING  |   FAIL: GPU-2 — temp 75>70C, power 310W>280W
+2026-04-15 15:46:15 | WARNING  |   FAIL: GPU-3 — temp 71>70C
+2026-04-15 15:46:15 | WARNING  |   FAIL: GPU-4 — temp 80>70C, power 340W>280W
+2026-04-15 15:46:15 | INFO     | Overall: FAIL | Pass rate: 20.0%
+2026-04-15 15:46:25 | INFO     | Loaded config from config/validation_config.yaml
+2026-04-15 15:46:25 | INFO     | Applying profile: burn_in — Extended burn-in test â€” higher limits
+2026-04-15 15:46:25 | INFO     | Loaded 5 GPU entries from data/gpu_metrics.csv
+2026-04-15 15:46:25 | INFO     | All 5 GPU(s) PASSED validation
+2026-04-15 15:46:25 | INFO     | Overall: PASS | Pass rate: 100.0%
+2026-04-15 15:46:38 | DEBUG    | Logging initialized — level: DEBUG
+2026-04-15 15:46:39 | INFO     | Loaded config from config/validation_config.yaml
+2026-04-15 15:46:39 | DEBUG    | Config loaded: temp=73C power=300W profile=default
+2026-04-15 15:46:39 | DEBUG    | Reading metrics from CSV: data/gpu_metrics.csv
+2026-04-15 15:46:39 | INFO     | Loaded 5 GPU entries from data/gpu_metrics.csv
+2026-04-15 15:46:39 | WARNING  | 2 of 5 GPU(s) FAILED validation
+2026-04-15 15:46:39 | WARNING  |   FAIL: GPU-2 — temp 75>73C, power 310W>300W
+2026-04-15 15:46:39 | WARNING  |   FAIL: GPU-4 — temp 80>73C, power 340W>300W
+2026-04-15 15:46:39 | INFO     | Overall: FAIL | Pass rate: 60.0%
