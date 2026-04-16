@@ -1,3 +1,5 @@
+import sys
+
 import pandas as pd
 import matplotlib
 matplotlib.use('Agg')  # no display needed — saves to file
@@ -184,6 +186,11 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
                         format="%(asctime)s | %(levelname)s | %(message)s")
     args = parse_args()
+    if not os.path.exists(args.input):
+        print(f"Error: input file not found: {args.input}")
+        print("Run the pipeline at least once first:")
+        print("  python src/pipeline.py --input data/gpu_metrics.csv")
+        sys.exit(1)
 
     df    = load_csv(args.input)
     basic_stats(df)

@@ -229,7 +229,7 @@ def analyze_metrics(data, limit, power_limit):
         if not power_ok:
             reasons.append(f"power {d['power_watts']}W>{power_limit}W")
 
-        logger.debug("%s: temp=%dC power=%.1fW → %s",
+        logger.debug("%s: temp=%dC power=%.1fW -> %s",
                      d["name"], d["temp"], d["power_watts"], status)
 
         results.append({
@@ -294,7 +294,7 @@ def save_results(result, output_path, metadata):
     output = {"metadata": metadata, "results": result}
     with open(output_path, "w") as f:
         json.dump(output, f, indent=2)
-        logger.info("Results saved → %s", output_path)
+        logger.info("Results saved -> %s", output_path)
 
     # ✅ define it here
     summary_line = f"Overall: {result['overall']} | Pass rate: {result['summary']['pass_rate']}"
